@@ -16,13 +16,6 @@ services:
         volumes:
             - ./chat_api/code:/app
 
-    service-mongodb:
-        build:
-            context: ./service-mongodb
-            dockerfile: Dockerfile
-        ports:
-            - "27017:27017"
-
 volumes:
     service-mysql-volume:
         driver: local
