@@ -2,3 +2,5 @@
 chat_api/code/node_modules/
 chat_client/node_modules/
 chat_api/code/yarn.lock
+
+chat_api/code/yarn-error.log
