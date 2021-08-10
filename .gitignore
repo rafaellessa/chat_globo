@@ -1,2 +1,3 @@
-/chat-api/code/node_modules
-/chat-api/code/yarn.lock
+
+chat_api/code/node_modules/
+chat_api/code/yarn.lock
