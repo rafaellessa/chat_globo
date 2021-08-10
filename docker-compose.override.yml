@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+
+    service-mysql:
+        volumes:
+            - service-mysql-volume:/var/lib/mysql
+        ports:
+            - "3306:3306"
+            
+    chat-api:
+        ports:
+            - "9233:9229"
+        build:
+            context: ./chat_api
+            dockerfile: Dockerfile
+        volumes:
+            - ./chat_api/code:/app
+
+    service-mongodb:
+        build:
+            context: ./service-mongodb
+            dockerfile: Dockerfile
+        ports:
+            - "27017:27017"
+
+volumes:
+    service-mysql-volume:
+        driver: local
