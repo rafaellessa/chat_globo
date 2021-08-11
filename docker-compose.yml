@@ -15,11 +15,11 @@ services:
         environment:
 
             #Mysql
-            DB_HOST: service-mysql
-            DB_PORT: 3306
-            DB_USERNAME: ${MYSQL_DB_USERNAME}
-            DB_PASSWORD: ${MYSQL_DB_PASSWORD}
-            DB_DATABASE: ${MYSQL_DB_DATABASE}
+            MYSQL_DB_HOST: service-mysql
+            MYSQL_DB_PORT: 3306
+            MYSQL_DB_USERNAME: ${MYSQL_DB_USERNAME}
+            MYSQL_DB_PASSWORD: ${MYSQL_DB_PASSWORD}
+            MYSQL_DB_DATABASE: ${MYSQL_DB_DATABASE}
 
             # Redis
             REDIS_HOST: service-redis
