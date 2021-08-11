@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/index.ts"
+    "build": "sucrase ./src -d ./dist --transforms typescript,imports",
+    "start": "nodemon ./src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +26,8 @@
     "eslint-plugin-import": "^2.24.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
+    "sucrase": "^3.20.1",
+    "ts-node-dev": "^1.1.8",
     "typescript": "^4.3.5"
   }
 }
