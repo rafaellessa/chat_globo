@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import io from 'socket.io-client';
 import './App.css';
 
+const endpoint = 'http://localhost:3002/'
+
+
 function App() {
+  
+  useEffect(() => {
+    const socket = io(endpoint, {transports: ['websocket']})
+    socket.on('connection', (data) => console.log("Data: ", data))
+    socket.emit('chat.message', {
+      id: 1,
+      message: 'olá'
+    })
+
+    socket.on('chat.message', (data)=> {
+      console.log("mensagem do servidor: ", data)
+    })
+  }, [])
+  const [id] = useState(0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+      <h1>Meu código é {id}</h1>
     </div>
   );
 }
