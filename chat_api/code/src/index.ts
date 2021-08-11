@@ -1,6 +1,5 @@
-import Express from 'express'
-const app = Express()
+import { http } from './config/http'
 
-app.listen(process.env.CHAT_API_PORT, () => {
-  console.log(`Server listen on port ${process.env.CHAT_API_PORT}`)
+http.listen(process.env.CHAT_API_PORT, () => {
+  console.log(`Server list on port ${process.env.CHAT_API_PORT}`)
 })
