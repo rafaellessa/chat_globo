@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm'
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm'
 
 export class CreateMessagesUsers1628709313584 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -13,16 +13,32 @@ export class CreateMessagesUsers1628709313584 implements MigrationInterface {
             generationStrategy: 'uuid'
           },
           {
-            name: 'id_message',
-            type: 'int'
+            name: 'message_id',
+            type: 'varchar',
+            generationStrategy: 'uuid'
           },
           {
-            name: 'id_user',
-            type: 'int'
+            name: 'user_id',
+            type: 'varchar',
+            generationStrategy: 'uuid'
           }
         ]
       })
     )
+
+    await queryRunner.createForeignKey("message_users", new TableForeignKey({
+      columnNames: ["user_id"],
+      referencedColumnNames: ["id"],
+      referencedTableName: "users",
+      onDelete: "CASCADE"
+    }))
+
+    await queryRunner.createForeignKey("message_users", new TableForeignKey({
+      columnNames: ["message_id"],
+      referencedColumnNames: ["id"],
+      referencedTableName: "messages",
+      onDelete: "CASCADE"
+    }))
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

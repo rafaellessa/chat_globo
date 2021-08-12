@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm'
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm'
 
 export class CreateUsersRooms1628709333054 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -13,18 +13,36 @@ export class CreateUsersRooms1628709333054 implements MigrationInterface {
             generationStrategy: 'uuid'
           },
           {
-            name: 'id_user',
-            type: 'int'
+            name: 'user_id',
+            type: 'varchar',
+            generationStrategy: 'uuid'
           },
           {
-            name: 'id_room',
-            type: 'int'
+            name: 'room_id',
+            type: 'varchar',
+            generationStrategy: 'uuid'
           }
         ]
       })
     )
+
+    await queryRunner.createForeignKey("user_rooms", new TableForeignKey({
+      columnNames: ["user_id"],
+      referencedColumnNames: ["id"],
+      referencedTableName: "users",
+      onDelete: "CASCADE"
+    }))
+
+    await queryRunner.createForeignKey("user_rooms", new TableForeignKey({
+      columnNames: ["room_id"],
+      referencedColumnNames: ["id"],
+      referencedTableName: "rooms",
+      onDelete: "CASCADE"
+    }))
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+
+    await queryRunner.dropTable('user_rooms')
   }
 }
