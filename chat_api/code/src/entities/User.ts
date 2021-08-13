@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid'
 class User {
 
   @PrimaryColumn()
-  id: string
+  id?: string
 
   @Column()
   name: string
@@ -17,7 +17,7 @@ class User {
   password: string
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at?: Date;
 
   constructor() {
     if (!this.id) {
