@@ -6,3 +6,4 @@ chat_api/code/yarn.lock
 chat_client/yarn.lock
 
 chat_api/code/yarn-error.log
+.env
