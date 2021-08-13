@@ -11,6 +11,11 @@ class UserService {
 
   async create(user: User) {
 
+    const parsedUser = this.userRepository.create({ ...user })
+    await this.userRepository.save(parsedUser)
+
+    return parsedUser
+
   }
 
   async getUser(id: string) {
