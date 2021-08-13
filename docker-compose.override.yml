@@ -9,7 +9,7 @@ services:
             
     chat-api:
         ports:
-            - "9233:9229"
+            - "9235:9229"
         build:
             context: ./chat_api
             dockerfile: Dockerfile
