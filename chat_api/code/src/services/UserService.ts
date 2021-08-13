@@ -1,5 +1,5 @@
 import { getCustomRepository, Repository } from 'typeorm';
-import { User } from "../entities/User";
+import { User, UserProps } from "../entities/User";
 import { UsersRepository } from '../repositories/UsersRepository';
 
 class UserService {
@@ -15,12 +15,14 @@ class UserService {
     return user
   }
 
-  async create(user: User) {
+  async create(data: UserProps) {
 
-    const parsedUser = this.userRepository.create({ ...user })
+    const parsedUser = this.userRepository.create({ ...data })
     await this.userRepository.save(parsedUser)
 
-    return parsedUser
+    parsedUser.password = undefined
+
+    return parsedUser;
 
   }
 
