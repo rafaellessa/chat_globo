@@ -1,0 +1,15 @@
+{
+  "configurations": [
+    {
+      "restart": true,         
+      "type": "node",
+      "request": "attach",
+      "name": "API Service Food Node debug",
+      "localRoot": "${workspaceRoot}/chat_api/code",
+      "remoteRoot": "/app",
+      "port": 9235,
+      "address": "localhost",
+      "protocol": "inspector"
+    }
+  ]
+}
