@@ -9,6 +9,12 @@ class UserService {
     this.userRepository = getCustomRepository(UsersRepository)
   }
 
+  async findUserEmail(email: string) {
+    const repo = getCustomRepository(UsersRepository)
+    const user = await repo.findByEmail(email)
+    return user
+  }
+
   async create(user: User) {
 
     const parsedUser = this.userRepository.create({ ...user })

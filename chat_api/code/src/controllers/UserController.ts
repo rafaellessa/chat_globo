@@ -1,4 +1,5 @@
-import { Request, Response } from "express";
+import { json, Request, Response } from "express";
+import { User } from "../entities/User";
 import { UserService } from '../services/UserService'
 class UserController {
 
@@ -7,7 +8,7 @@ class UserController {
     try {
 
       const userService = new UserService()
-      const { name, email, password } = request.body
+      const { name, email, password } = request.body as User
 
       const user = await userService.create({
         name,
@@ -15,14 +16,35 @@ class UserController {
         password
       })
 
-      return response.json(user).status(201)
+      return response..status(201).json(user)
 
     } catch (error) {
-      return response.send({
+      return response.status(400).send({
         error: true,
         message: error.message
-      }).status(404)
+      })
     }
+  }
+
+  async register(request: Request, response: Response): Promise<Response> {
+    try {
+      const userService = new UserService()
+      const { email } = request.body
+
+      const user = await userService.findUserEmail(email)
+
+      if (user) {
+        throw new Error('User already exists!')
+      }
+      return response.status(201).json(user)
+    } catch (error) {
+
+      return response.status(400).send({
+        error: true,
+        message: error.message
+      })
+    }
+
   }
 }
 

@@ -4,6 +4,6 @@ const routes = Router()
 
 const userController = new UserController()
 
-routes.post('/users', userController.create)
+routes.post('/users', userController.register)
 
 export { routes }
