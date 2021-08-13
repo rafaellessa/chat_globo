@@ -33,6 +33,8 @@ services:
             CHAT_API_ENV: ${CHAT_API_ENV}
             CHAT_API_PORT: ${CHAT_API_PORT}
 
+            JWT_SECRET: ${JWT_SECRET}
+
         networks:
             - service-network
         depends_on:
