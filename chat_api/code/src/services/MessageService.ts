@@ -11,6 +11,12 @@ class MessageService {
 
   async create(message: Message) {
 
+    const parsedMessage = this.messageRepository.create(message)
+
+
+    await this.messageRepository.save(parsedMessage)
+
+    return parsedMessage
   }
 
   async delete(id: string) {
