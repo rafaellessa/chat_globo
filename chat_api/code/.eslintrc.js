@@ -16,6 +16,6 @@ module.exports = {
     '@typescript-eslint'
   ],
   rules: {
-    'eslint-disable camelcase'
+    "eslint-disable camelcase": 0
   }
 }
