@@ -29,6 +29,11 @@ class UserService {
   async getUser(id: string) {
 
   }
+
+  async getUsers() {
+    const users = this.userRepository.createQueryBuilder('user').orderBy('user.name').getMany()
+    return users
+  }
 }
 
 export { UserService }
