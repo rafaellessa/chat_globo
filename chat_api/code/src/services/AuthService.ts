@@ -5,7 +5,7 @@ import { EncrypterAdapter } from '../adapters/EncrypterAdapter'
 
 class AuthService {
 
-  async authenticate(email: string, password: string) {
+  async authenticate(email: string, password: string): Promise<string> {
     const userService = new UserService()
     const user = await userService.findUserEmail(email)
     const encrypter = new EncrypterAdapter()
