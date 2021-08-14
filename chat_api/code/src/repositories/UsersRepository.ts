@@ -5,7 +5,11 @@ import { User } from "../entities/User";
 class UsersRepository extends Repository<User> {
 
   async findByEmail(email: string) {
-    return this.findOne({ email })
+    return await this.findOne({ email })
+  }
+
+  async getAllUsers() {
+    return await this.createQueryBuilder('user').orderBy('user.name').getMany()
   }
 }
 
