@@ -1,11 +1,8 @@
+import { NextFunction, Request, Response } from 'express';
 import { JwtAdapter } from "../adapters/JwtAdapter";
-import { Request, Response, NextFunction } from 'express'
 class ValidateToken {
 
-  private jwtAdapter: JwtAdapter
-  constructor() {
-    this.jwtAdapter = new JwtAdapter()
-  }
+
 
   validate(request: Request, response: Response, next: NextFunction) {
     const ignorePaths = [
@@ -13,7 +10,6 @@ class ValidateToken {
       '/auth',
       '/forgot-password'
     ]
-
     if (!ignorePaths.includes(request.path)) {
       const token = request.headers.authorization
       if (!token) {
@@ -38,4 +34,4 @@ class ValidateToken {
   }
 }
 
-export { ValidateToken }
+export { ValidateToken };
