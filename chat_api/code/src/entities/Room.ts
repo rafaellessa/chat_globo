@@ -1,11 +1,11 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm'
-import { v4 as uuid } from 'uuid'
+import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { v4 as uuid } from 'uuid';
 
 @Entity("rooms")
 class Room {
 
   @PrimaryColumn()
-  id: string
+  id?: string
 
   @Column()
   name: string
@@ -17,4 +17,5 @@ class Room {
   }
 }
 
-export { Room }
+export { Room };
+
