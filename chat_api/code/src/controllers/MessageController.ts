@@ -8,7 +8,7 @@ class MessageController {
 
       const { message } = request.body
       const messageService = new MessageService()
-      const result = messageService.create(message)
+      const result = await messageService.create(message)
 
       return response.status(201).send({
         success: true,
