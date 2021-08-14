@@ -1,6 +1,6 @@
-import { Entity, Column, CreateDateColumn, PrimaryColumn, BeforeInsert, BeforeUpdate } from 'typeorm'
-import { v4 as uuid } from 'uuid'
 import bcrypt from 'bcrypt'
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm'
+import { v4 as uuid } from 'uuid'
 
 export interface UserProps {
   name: string

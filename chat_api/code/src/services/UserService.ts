@@ -31,7 +31,8 @@ class UserService {
   }
 
   async getUsers() {
-    const users = this.userRepository.createQueryBuilder('user').orderBy('user.name').getMany()
+    const repo = getCustomRepository(UsersRepository)
+    const users = await repo.getAllUsers()
     return users
   }
 }
