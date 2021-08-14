@@ -1,4 +1,4 @@
-import { Entity, Column, CreateDateColumn, PrimaryColumn, ManyToMany, JoinTable } from 'typeorm'
+import { Entity, Column, CreateDateColumn, PrimaryColumn, ManyToMany, JoinTable, ManyToOne, JoinColumn } from 'typeorm'
 import { v4 as uuid } from 'uuid'
 import { User } from './User'
 import { Room } from './Room'
@@ -13,15 +13,25 @@ class Message {
   text: string
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at: Date
 
-  @ManyToMany(() => User)
-  @JoinTable()
-  users: User[]
+  @JoinColumn({ name: "author_id" })
+  @ManyToOne(() => User)
+  user: User
 
-  @ManyToMany(() => Room)
-  @JoinTable()
-  rooms: Room[]
+  @JoinColumn({ name: "room_id" })
+  @ManyToOne(() => Room)
+  room: Room
+
+  @Column()
+  destination_id: string
+
+  @Column()
+  author_id: string
+
+  @Column()
+  room_id: string
+
 
   constructor() {
     if (!this.id) {

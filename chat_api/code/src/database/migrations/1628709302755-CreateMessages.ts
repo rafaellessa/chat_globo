@@ -17,6 +17,21 @@ export class CreateMessages1628709302755 implements MigrationInterface {
             type: 'varchar(300)'
           },
           {
+            name: 'room_id',
+            type: 'varchar',
+            generationStrategy: 'uuid'
+          },
+          {
+            name: 'author_id',
+            type: 'varchar',
+            generationStrategy: 'uuid'
+          },
+          {
+            name: 'destination_id',
+            type: 'varchar',
+            generationStrategy: 'uuid'
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()'
