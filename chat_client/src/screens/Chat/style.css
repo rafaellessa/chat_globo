@@ -1,0 +1,65 @@
+
+.sidebar {
+
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  padding: 80px 200px;
+  height: 800px;
+  justify-content: center;
+}
+
+.sidebar {
+  display: flex;
+  background-color: #128C7E;
+  flex: 1;
+  padding: 20px  
+
+}
+
+.message-box {
+  display: flex;
+  flex: 3;
+  background-color: #ECE5DD;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  
+  height: 100px;
+  width: 100%;
+}
+
+.btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  background-color: #6FCF97;
+  border: 0px;
+  box-shadow: 0 12px 35px 0 rgba(226, 227, 231, 0.25);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  line-height: 24px;
+}
+
+.title {
+  font-family: Rajdhani;
+  font-weight: 500;
+  font-size: 26px;
+}
+
+.subtitle {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 16px;
+}
+
