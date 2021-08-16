@@ -37,9 +37,20 @@ export const SubTitle = styled.span`
 export const Button = styled.button`
   width: 48px;
   height: 48px;
-  border-radius: 15px;
+  border-radius: 30px;
   background-color: ${theme.colors.secondary100};
   border: 0px;
+
+  :hover {
+    opacity: 0.7;
+  }
+
+  :active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+  }
 `
 export const AddIcon = styled(Add)`
   color: ${theme.colors.white};
@@ -88,24 +99,47 @@ color: ${theme.colors.white};
 export const SearchIcon = styled(Search)`
 color: ${theme.colors.white};
 `
-export const MessagesContainer = styled.ul`
+export const MessageSection = styled.div`
+ margin: 10px 0px
+`
+export const MessageSectionTitle = styled.span`
+  background-color: ${theme.colors.secondary100};
+  padding: 5px 15px;
+  border-radius: 30px;
+  font-family: Rajdhani;
+  font-weight: 600;
+`
+
+export const MessagesContainer = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 15px;
   background-color: #ECE5DD;
   border-radius: 10px; 
   overflow: auto;
+  padding: 10px;
+`
+export const MessageList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px;
+  margin: 0px;
 `
 
 export const MessageItem = styled.li`
   display: flex;
-  padding-bottom: 10px;
   border-bottom: 1px solid #DDD3D3;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px
+  padding: 10px;
+  margin-bottom: 5px;
+
+  :hover{
+    opacity: 0.3;
+
+  }
 `
 export const MessageDetails = styled.div`
   display: flex;
