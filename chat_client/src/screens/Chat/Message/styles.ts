@@ -1,6 +1,7 @@
 import { theme } from './../../../global/theme/theme'
 import styled from 'styled-components'
 import { MenuOpen, Send } from '@material-ui/icons'
+import background from '../../../assets/background.png'
 
 interface ThemedStyledProps {
   myMessage: boolean
@@ -20,6 +21,7 @@ export const Content = styled.div`
   background-color: ${theme.colors.white};
   flex-direction: column;
   border-radius: 10px;
+  
 `
 export const HeaderContainer = styled.div`
   display: flex;
@@ -52,6 +54,10 @@ export const MessagesContainer = styled.div`
   flex-direction: column;
   height: 550px;
   overflow: auto;  
+  margin: 15px 0px;
+  background-image: url(${background});
+  border-radius: 10px;
+  padding: 10px 15px;
 `
 export const MessageContainer = styled.ul`
   display: flex;
@@ -84,6 +90,8 @@ export const MessageInputContainer = styled.span`
   border-radius: 20px;
 `
 export const MessageInput = styled.input`
+  font-family: Inter;
+  font-size: 14px;
   display: flex;
   flex: 1;
   border: none;

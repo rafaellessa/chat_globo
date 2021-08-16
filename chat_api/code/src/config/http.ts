@@ -25,5 +25,4 @@ io.on('connection', (socket: Socket) => {
   })
 })
 
-
 export { http, io }
