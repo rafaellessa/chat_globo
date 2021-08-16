@@ -24,6 +24,7 @@ module.exports = {
     'no-unused-vars': 0,
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
-    'react/prop-types': 0
+    'react/prop-types': 0,
+    'camelcase': 0
   }
 }
