@@ -30,7 +30,7 @@ const Routes = () => (
       <Route exact path="/" component={Login}/>
       <Route exact path="/login" component={Login}/>
       <Route exact path="/register" component={SignUp}/>
-      <PrivateRoutes path='/chat' component={Chat}/>
+      <PrivateRoutes exact path='/chat' component={Chat}/>
     </Switch>
   </BrowserRouter>
 )

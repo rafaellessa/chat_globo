@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import { theme } from '../../global/theme/theme'
 
+import styled from 'styled-components'
 import background from '../../assets/background.png'
+import { theme } from '../../global/theme/theme'
 
 export const Container = styled.div`
   display: flex;
@@ -73,8 +73,7 @@ export const ButtonRegister = styled.button`
   margin-bottom: 20px;
   border-radius: 30px;
   border: 0px;
-  font-family: Inter;
-  font-size: 16px;
+  
   justify-content: center;
   align-items: center;
 
@@ -83,4 +82,8 @@ export const ButtonRegister = styled.button`
     cursor: pointer;
   }
 `
-export const ButtonTitle = styled.span``
+export const ButtonTitle = styled.span`
+  font-family: Inter;
+  font-size: 16px;
+  color: ${theme.colors.white};
+`

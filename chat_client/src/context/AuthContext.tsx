@@ -37,8 +37,6 @@ const AuthProvider: React.FC = ({ children }) => {
   const handleLogin = async (email: string, password: string) => {
     const response: LoginReturnApi = await AuthService.login(email, password)
 
-    console.log('response aquji no ctx: ', response)
-
     if (!response.data.token) {
       return {} as LoginReturnApi
     }
