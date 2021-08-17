@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import bcrypt from 'bcrypt'
 import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm'
 import { v4 as uuid } from 'uuid'
@@ -8,9 +9,8 @@ export interface UserProps {
   password: string
 }
 
-@Entity("users")
+@Entity('users')
 class User {
-
   @PrimaryColumn()
   id?: string
 
@@ -28,11 +28,11 @@ class User {
 
   @BeforeInsert()
   @BeforeUpdate()
-  async hashPassword(): Promise<void> {
-    this.password = await bcrypt.hashSync(this.password, 10)
+  async hashPassword (): Promise<void> {
+    this.password = bcrypt.hashSync(this.password, 10)
   }
 
-  constructor() {
+  constructor () {
     if (!this.id) {
       this.id = uuid()
     }
