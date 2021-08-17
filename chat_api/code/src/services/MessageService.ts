@@ -1,6 +1,7 @@
-import { getCustomRepository, Repository } from "typeorm";
-import { Message } from "../entities/Message";
-import { MessageRepository } from "../repositories/MessageRepository";
+/* eslint-disable camelcase */
+import { getCustomRepository, Repository } from 'typeorm'
+import { Message } from '../entities/Message'
+import { MessageRepository } from '../repositories/MessageRepository'
 
 interface IMessage {
   text: string
@@ -10,14 +11,12 @@ interface IMessage {
 }
 
 class MessageService {
-
   private messageRepository: Repository<Message>
-  constructor() {
+  constructor () {
     this.messageRepository = getCustomRepository(MessageRepository)
   }
 
-  async create(message: IMessage) {
-
+  async create (message: IMessage) {
     const parsedMessage = this.messageRepository.create(message)
 
     await this.messageRepository.save(parsedMessage)
@@ -25,16 +24,28 @@ class MessageService {
     return parsedMessage
   }
 
-  async delete(id: string) {
+  async delete (id: string) {
 
   }
 
-  async put(message: Message) {
+  async put (message: Message) {
 
   }
 
-  async getAll() {
+  async getAll () {
+    const repo = getCustomRepository(MessageRepository)
+    const messages = await repo.getMessages()
 
+    return messages
+  }
+
+  async findMessagesWithRoom (roomId: string) {
+    const messages = await this.messageRepository.find({
+      where: { room_id: roomId },
+      relations: ['user', 'room']
+    })
+
+    return messages
   }
 }
 
