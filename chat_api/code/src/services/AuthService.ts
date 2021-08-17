@@ -1,11 +1,10 @@
-import { UserProps } from './../entities/User';
-import { UserService } from './UserService';
-import { JwtAdapter } from '../adapters/JwtAdapter';
+import { User, UserProps } from './../entities/User'
+import { UserService } from './UserService'
+import { JwtAdapter } from '../adapters/JwtAdapter'
 import { EncrypterAdapter } from '../adapters/EncrypterAdapter'
 
 class AuthService {
-
-  async authenticate(email: string, password: string): Promise<string> {
+  async authenticate (email: string, password: string): Promise<{token: string, user: User}> {
     const userService = new UserService()
     const user = await userService.findUserEmail(email)
     const encrypter = new EncrypterAdapter()
@@ -19,14 +18,16 @@ class AuthService {
       throw new Error('Incorrect password')
     }
 
-    const token = await jwt.generateToken({ ...user }, "8h")
+    const token = await jwt.generateToken({ ...user }, '8h')
+    user.password = undefined
 
-    return token
-
+    return {
+      token,
+      user
+    }
   }
 
-  async register(data: UserProps) {
-
+  async register (data: UserProps) {
     const userService = new UserService()
 
     const { email } = data
@@ -39,7 +40,6 @@ class AuthService {
     const parsedUser = await userService.create(data)
 
     return parsedUser
-
   }
 }
 
