@@ -4,13 +4,7 @@ export default class Api {
   public static getApiInstance (baseUrl: string): AxiosInstance {
     const api = axios.create({
       baseURL: baseUrl,
-      timeout: 1200,
-      withCredentials: true,
-      headers: {
-        accept: 'application/json, text/plain, */*',
-        'content-type': 'application/json',
-        'cache-control': 'no-store'
-      }
+      timeout: 1200
     })
     this.apiInstance = api
     return this.apiInstance
