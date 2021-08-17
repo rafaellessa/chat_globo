@@ -6,12 +6,14 @@ import { AuthContext } from '../../../context/AuthContext'
 
 import avatar from '../../../assets/avatar.jpg'
 import Dialog from '../Dialog'
+import { User } from '../../../data/services/users/types'
 
 interface SideProps {
   messages?: []
+  users: User[] | undefined
 }
 
-const Side: React.FC<SideProps> = ({ messages }) => {
+const Side: React.FC<SideProps> = ({ messages, users }) => {
   const [searchText, setSearchText] = useState('')
   const [searching, setSearching] = useState(false)
   const { user } = useContext(AuthContext)
@@ -83,78 +85,14 @@ const Side: React.FC<SideProps> = ({ messages }) => {
           <MessageSection>
             <MessageSectionTitle>Usuários</MessageSectionTitle>
           </MessageSection>
-          <MessageItem>
-            <Avatar avatar={avatar}/>
-            <MessageDetails>
-              <MessageAuthor>Gilberto</MessageAuthor>
-              <MessageResume>fala meu querido</MessageResume>
-            </MessageDetails>
-            <MessageTime>12:00</MessageTime>
-          </MessageItem>
-          <MessageItem>
-            <Avatar avatar={avatar}/>
-            <MessageDetails>
-              <MessageAuthor>Gilberto</MessageAuthor>
-              <MessageResume>fala meu querido</MessageResume>
-            </MessageDetails>
-            <MessageTime>12:00</MessageTime>
-          </MessageItem>
-          <MessageItem>
-            <Avatar avatar={avatar}/>
-            <MessageDetails>
-              <MessageAuthor>Gilberto</MessageAuthor>
-              <MessageResume>fala meu querido</MessageResume>
-            </MessageDetails>
-            <MessageTime>12:00</MessageTime>
-          </MessageItem>
-          <MessageItem>
-            <Avatar avatar={avatar}/>
-            <MessageDetails>
-              <MessageAuthor>Gilberto</MessageAuthor>
-              <MessageResume>fala meu querido</MessageResume>
-            </MessageDetails>
-            <MessageTime>12:00</MessageTime>
-          </MessageItem>
-          <MessageItem>
-            <Avatar avatar={avatar}/>
-            <MessageDetails>
-              <MessageAuthor>Gilberto</MessageAuthor>
-              <MessageResume>fala meu querido</MessageResume>
-            </MessageDetails>
-            <MessageTime>12:00</MessageTime>
-          </MessageItem>
-          <MessageItem>
-            <Avatar avatar={avatar}/>
-            <MessageDetails>
-              <MessageAuthor>Gilberto</MessageAuthor>
-              <MessageResume>fala meu querido</MessageResume>
-            </MessageDetails>
-            <MessageTime>12:00</MessageTime>
-          </MessageItem>
-          <MessageItem>
-            <Avatar avatar={avatar}/>
-            <MessageDetails>
-              <MessageAuthor>Gilberto</MessageAuthor>
-              <MessageResume>fala meu querido</MessageResume>
-            </MessageDetails>
-            <MessageTime>12:00</MessageTime>
-          </MessageItem>
-          <MessageItem>
-            <Avatar avatar={avatar}/>
-            <MessageDetails>
-              <MessageAuthor>Gilberto</MessageAuthor>
-              <MessageResume>fala meu querido</MessageResume>
-            </MessageDetails>
-            <MessageTime>12:00</MessageTime>
-          </MessageItem>
-          <MessageItem>
-            <Avatar avatar={avatar}/>
-            <MessageDetails>
-              <MessageAuthor>Gilberto</MessageAuthor>
-              <MessageResume>fala meu querido</MessageResume>
-            </MessageDetails>
-            <MessageTime>12:00</MessageTime>
-          </MessageItem>
+            {users?.map((user) => (
+              <MessageItem key={user.id}>
+                <Avatar avatar={avatar}/>
+                <MessageDetails>
+                  <MessageAuthor>{user.name}</MessageAuthor>
+                </MessageDetails>
+              </MessageItem>
+            ))}
         </MessageList>
       </MessagesContainer>
 

@@ -30,19 +30,20 @@ interface LoginReturnApi {
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps)
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [authenticated, setAuthenticated] = useState(false)
+  const [authenticated, setAuthenticated] = useState(true)
   const [user, setUser] = useState<User | null>(null)
   const [error, setError] = useState<string | undefined>('')
 
   const handleLogin = async (email: string, password: string) => {
     const response: LoginReturnApi = await AuthService.login(email, password)
-
+    console.log('saklskasak', response)
     if (!response.data.token) {
       return {} as LoginReturnApi
     }
 
     setUser(response.data.user)
     setAuthenticated(true)
+    localStorage.setItem('token', response.data.token)
 
     return response
   }

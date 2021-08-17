@@ -1,5 +1,5 @@
 const action = {
-  getAll: 'https://localhost:3002/users'
+  getAll: 'http://localhost:3002/users'
 }
 
 export default action
