@@ -15,18 +15,18 @@ const authController = new AuthController()
 const messageController = new MessageController()
 const roomController = new RoomController()
 
-//Auth
+// Auth
 routes.post('/register', authController.register)
 routes.post('/auth', authController.authenticate)
 
-//Users
+// Users
 routes.get('/users', userController.getAll)
 
-//Rooms
+// Rooms
 routes.post('/rooms', roomController.create)
 routes.get('/rooms', roomController.getRooms)
 
-//Messages
+// Messages
 routes.post('/messages', messageController.create)
 
 export { routes }
