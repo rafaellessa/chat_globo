@@ -4,9 +4,14 @@ import { createServer } from 'http'
 import { routes } from '../routes'
 import '../database'
 import { Server, Socket } from 'socket.io'
+import cors from 'cors'
 const app = express()
+const corsOptions = {
+  origin: 'http://localhost:3000'
+}
 
 app.use(express.json())
+app.use(cors(corsOptions))
 app.use(routes)
 
 const http = createServer(app)
