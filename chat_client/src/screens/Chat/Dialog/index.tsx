@@ -1,6 +1,10 @@
-import React from 'react'
+/* eslint-disable @typescript-eslint/no-use-before-define */
+import React, { useEffect, useState } from 'react'
 import avatar from '../../../assets/avatar.jpg'
 import Avatar from '../../../components/Avatar'
+import RoomService from '../../../data/services/rooms'
+import UserService from '../../../data/services/users'
+import { User } from '../../../data/services/users/types'
 
 import {
   Container,
@@ -25,6 +29,24 @@ interface DialogProps {
   onCloseModal: () => void
 }
 const Dialog: React.FC<DialogProps> = ({ isOpen, onCloseModal }) => {
+  const [users, setUsers] = useState<User[] | null>(null)
+  const [userSelected, setUserSelected] = useState('')
+  const [rommName, setRoomName] = useState('')
+
+  useEffect(() => {
+    fetchUsers()
+  }, [])
+
+  const fetchUsers = async () => {
+    const response = await UserService.getAllUsers()
+    setUsers(response)
+  }
+
+  const handleCreateRoom = async () => {
+    const response = await RoomService.createRoom(rommName)
+    onCloseModal()
+  }
+
   return (
     <Container>
       <DialogContainer open={isOpen} onClose={onCloseModal}>
@@ -33,42 +55,26 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onCloseModal }) => {
         </DialogTitle>
         <DialogContent>
           <InputContainer>
-            <Input placeholder="Digite um nome para a nova sala" />
+            <Input value={rommName} onChange={(event) => setRoomName(event.target.value) } placeholder="Digite um nome para a nova sala" />
           </InputContainer>
           <SimpleTitle>Escolha um usuário</SimpleTitle>
           <UsersContainer>
             <UserList>
-              <UserItem select={true}>
-                <Avatar avatar={avatar} />
-                <UserName>Gilberto</UserName>
-                <CheckIconContainer>
-                  <CheckIcon/>
-                </CheckIconContainer>
-              </UserItem>
-              <UserItem>
-                <Avatar avatar={avatar} />
-                <UserName>Gilberto</UserName>
-              </UserItem>
-              <UserItem>
-                <Avatar avatar={avatar} />
-                <UserName>Gilberto</UserName>
-              </UserItem>
-              <UserItem>
-                <Avatar avatar={avatar} />
-                <UserName>Gilberto</UserName>
-              </UserItem>
-              <UserItem>
-                <Avatar avatar={avatar} />
-                <UserName>Gilberto</UserName>
-              </UserItem>
-              <UserItem>
-                <Avatar avatar={avatar} />
-                <UserName>Gilberto</UserName>
-              </UserItem>
+              {users?.map((user) => (
+                <UserItem select={true} key={user.id} onClick={() => setUserSelected(user.id)}>
+                  <Avatar avatar={avatar} />
+                  <UserName>{user.name}</UserName>
+                  {userSelected === user.id && (
+                    <CheckIconContainer>
+                      <CheckIcon/>
+                    </CheckIconContainer>
+                  )}
+                </UserItem>
+              ))}
             </UserList>
           </UsersContainer>
           <FooterContainer>
-            <SaveButton>Salvar</SaveButton>
+            <SaveButton onClick={handleCreateRoom}>Salvar</SaveButton>
           </FooterContainer>
         </DialogContent>
       </DialogContainer>

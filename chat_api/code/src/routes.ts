@@ -28,5 +28,6 @@ routes.get('/rooms', roomController.getRooms)
 
 // Messages
 routes.post('/messages', messageController.create)
+routes.get('/messages', messageController.getAll)
 
 export { routes }

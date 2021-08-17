@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
 export class CreateMessages1628709302755 implements MigrationInterface {
-  public async up(queryRunner: QueryRunner): Promise<void> {
+  public async up (queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
         name: 'messages',
@@ -27,11 +27,6 @@ export class CreateMessages1628709302755 implements MigrationInterface {
             generationStrategy: 'uuid'
           },
           {
-            name: 'destination_id',
-            type: 'varchar',
-            generationStrategy: 'uuid'
-          },
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()'
@@ -41,7 +36,7 @@ export class CreateMessages1628709302755 implements MigrationInterface {
     )
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {
+  public async down (queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropTable('messages')
   }
 }
