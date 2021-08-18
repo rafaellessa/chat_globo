@@ -1,6 +1,8 @@
+import { getBaseUrl } from '../../../utils/api'
+
 const action = {
-  register: 'http://localhost:3002/register',
-  login: 'http://localhost:3002/auth'
+  register: `${getBaseUrl()}/register`,
+  login: `${getBaseUrl()}/auth`
 }
 
 export default action
