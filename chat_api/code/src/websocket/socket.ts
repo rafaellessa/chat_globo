@@ -1,17 +1,9 @@
 import { Server } from 'socket.io'
 import { http } from '../config/http'
-import { Message } from '../entities/Message'
 import { Room } from '../entities/Room'
 import { MessageService } from '../services/MessageService'
+import { RoomService } from '../services/RoomService'
 const io = new Server(http)
-
-interface RoomChatProps {
-  room: {
-    id: string
-    name: string
-  },
-  messages: Message[]
-}
 
 io.on('connection', (socket) => {
   const messageService = new MessageService()
@@ -30,6 +22,13 @@ io.on('connection', (socket) => {
     const parsedMessage = await messageService.getMessage(msg.id)
 
     io.emit('chat.room', parsedMessage)
+  })
+
+  socket.on('chat.syncRooms', async () => {
+    const roomService = new RoomService()
+    const rooms = await roomService.getRooms()
+    console.log('SAlas no BD: ', rooms)
+    io.emit('chat.rooms', rooms)
   })
 
   socket.on('disconnect', () => {
