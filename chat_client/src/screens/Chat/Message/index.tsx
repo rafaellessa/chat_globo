@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { Socket } from 'socket.io-client'
@@ -99,14 +100,18 @@ const Message: React.FC<MessageScreenProps> = ({ roomSelected }) => {
 
   const listMemo = useMemo(() => {
     return (
-      messages.map((msg, index) => (
-        <MessageItem myMessage={msg.user?.id === user?.id} key={index}>
-          <MessageItemContent myMessage={msg.user?.id === user?.id}>
-            <MessageText>{msg.text}</MessageText>
-            <MessageHour>09:30</MessageHour>
-          </MessageItemContent>
-        </MessageItem>
-      ))
+      messages.map((msg, index) => {
+        if (msg.room.id === roomSelected?.id) {
+          return (
+            <MessageItem myMessage={msg.user?.id === user?.id} key={index}>
+              <MessageItemContent myMessage={msg.user?.id === user?.id}>
+                <MessageText>{msg.text}</MessageText>
+                <MessageHour>09:30</MessageHour>
+              </MessageItemContent>
+            </MessageItem>
+          )
+        }
+      })
     )
   }, [messages])
 
