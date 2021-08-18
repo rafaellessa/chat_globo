@@ -8,6 +8,7 @@ import { AuthContext } from '../../../context/AuthContext'
 import { Room } from '../../../data/services/rooms/types'
 import { User } from '../../../data/services/users/types'
 import { WebSocket } from '../../../services/WebSocket'
+import { getBaseUrl } from '../../../utils/api'
 import { createDate } from '../../../utils/date'
 import {
   Container,
@@ -29,8 +30,6 @@ export interface MessageProps {
   author_id?: string
 }
 
-const endpoint = 'http://localhost:3002'
-
 interface MessageScreenProps {
   roomSelected: Room | undefined
 }
@@ -43,7 +42,7 @@ const Message: React.FC<MessageScreenProps> = ({ roomSelected }) => {
   const { user } = useContext(AuthContext)
 
   useEffect(() => {
-    const parsedInstance = instance.connect(endpoint)
+    const parsedInstance = instance.connect(getBaseUrl())
     setSocket(parsedInstance)
   }, [])
 

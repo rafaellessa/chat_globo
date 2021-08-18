@@ -13,11 +13,11 @@ import { Room } from '../../../data/services/rooms/types'
 import RoomService from '../../../data/services/rooms'
 import { WebSocket } from '../../../services/WebSocket'
 import { Socket } from 'socket.io-client'
+import { getBaseUrl } from '../../../utils/api'
 
 interface SideProps {
   onSelectRoom: (room: Room) => void
 }
-const endpoint = 'http://localhost:3002'
 
 const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
   const [searchText, setSearchText] = useState('')
@@ -40,7 +40,7 @@ const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
   }, [rooms])
 
   useEffect(() => {
-    const parsedInstance = instance.connect(endpoint)
+    const parsedInstance = instance.connect(getBaseUrl())
     setSocket(parsedInstance)
     fetchUsers()
     fetchRooms()

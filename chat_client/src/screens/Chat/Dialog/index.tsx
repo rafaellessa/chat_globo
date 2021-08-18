@@ -11,13 +11,12 @@ import {
   InputContainer,
   SaveButton
 } from './styles'
+import { getBaseUrl } from '../../../utils/api'
 
 interface DialogProps {
   isOpen: boolean
   onCloseModal: () => void
 }
-
-const endpoint = 'http://localhost:3002'
 
 const Dialog: React.FC<DialogProps> = ({ isOpen, onCloseModal }) => {
   const [rommName, setRoomName] = useState('')
@@ -25,7 +24,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onCloseModal }) => {
   const instance = new WebSocket()
 
   useEffect(() => {
-    const parsedInstance = instance.connect(endpoint)
+    const parsedInstance = instance.connect(getBaseUrl())
     setSocket(parsedInstance)
   }, [])
 
