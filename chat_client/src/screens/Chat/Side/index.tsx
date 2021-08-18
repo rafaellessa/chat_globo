@@ -25,7 +25,6 @@ const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
   const [rooms, setRooms] = useState<Room[]>()
 
   useEffect(() => {
-    console.log('Montou os datas')
     fetchUsers()
     fetchRooms()
   }, [])

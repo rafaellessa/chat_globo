@@ -46,6 +46,15 @@ class MessageService {
 
     return messages
   }
+
+  async getMessage (id: string) {
+    const message = await this.messageRepository.find({
+      where: { id: id },
+      relations: ['user', 'room']
+    })
+
+    return message
+  }
 }
 
 export { MessageService }

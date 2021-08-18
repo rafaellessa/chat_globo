@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { Socket } from 'socket.io-client'
 import avatar from '../../../assets/avatar.jpg'
 import Avatar from '../../../components/Avatar'
@@ -24,6 +24,7 @@ export interface MessageProps {
     id: string | undefined;
     name: string | undefined
   }
+  author_id?: string
 }
 
 const endpoint = 'http://localhost:3002'
@@ -45,42 +46,71 @@ const Message: React.FC<MessageScreenProps> = ({ roomSelected }) => {
   }, [])
 
   useEffect(() => {
-    console.log('Sala selecionada no componente: ', roomSelected)
     handleMessagesWithRoomSelected()
     if (roomSelected) {
       socket?.on('chat.sync', (data: MessageProps[]) => {
-        setMessages(data)
+        // setMessagesRoom(data)
+        setMessages(handleSortMessages(data))
       })
     }
   }, [roomSelected])
 
   useEffect(() => {
-    console.log('mensagens aqui:> ', messages)
-    const handleNewMessage = (newMessage) =>
-      setMessages([...messages, {
-        room: {
-          id: roomSelected?.id,
-          name: roomSelected?.name
-        },
-        text: newMessage.text,
-        user: newMessage.author_id
-      }])
-    socket?.on('chat.room', handleNewMessage)
-    return () => { socket?.off('chat.message', handleNewMessage) }
+    socket?.on('chat.room', (data) => {
+      handleMessages(data)
+    })
+    return () => {
+      socket?.off()
+    }
   }, [messages])
 
   const handleSave = (msg:string) => {
-    // setMessages([...messages, { room: roomSelected!, user, text: msg }])
-    socket?.emit('chat.room', {
-      author_id: user?.id,
-      room_id: roomSelected?.id,
-      text: msg
+    if (msg !== '') {
+      socket?.emit('chat.room', {
+        author_id: user?.id,
+        room_id: roomSelected?.id,
+        text: msg
+      })
+
+      setMessage('')
+    }
+  }
+
+  const handleMessages = (data: MessageProps[]) => {
+    setMessages([...messages, data[0]])
+  }
+
+  const handleSortMessages = (data: MessageProps[]):MessageProps[] => {
+    const parsedSort = data.sort((a, b) => {
+      if (a.created_at! > b.created_at!) {
+        return 1
+      }
+      if (a.created_at! < b.created_at!) {
+        return -1
+      }
+      // a must be equal to b
+      return 0
     })
+
+    return parsedSort
   }
 
   const handleMessagesWithRoomSelected = () => {
     socket?.emit('chat.sync', roomSelected)
   }
+
+  const listMemo = useMemo(() => {
+    return (
+      messages.map((msg, index) => (
+        <MessageItem myMessage={msg.user?.id === user?.id} key={index}>
+          <MessageItemContent myMessage={msg.user?.id === user?.id}>
+            <MessageText>{msg.text}</MessageText>
+            <MessageHour>09:30</MessageHour>
+          </MessageItemContent>
+        </MessageItem>
+      ))
+    )
+  }, [messages])
 
   const renderMessages = () => (
     <Container>
@@ -93,15 +123,7 @@ const Message: React.FC<MessageScreenProps> = ({ roomSelected }) => {
         <MenuIcon/>
       </HeaderContainer>
       <MessagesContainer>
-        {messages.map((msg, index) => (
-          <MessageItem myMessage={msg.user?.id === user?.id} key={index}>
-          <MessageItemContent myMessage={msg.user?.id === user?.id}>
-            <MessageText>{msg.text}</MessageText>
-            <MessageHour>09:30</MessageHour>
-          </MessageItemContent>
-        </MessageItem>
-        ))}
-
+        {listMemo}
       </MessagesContainer>
       <FooterContainer>
         <MessageInputContainer>

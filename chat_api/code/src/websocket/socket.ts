@@ -17,23 +17,19 @@ io.on('connection', (socket) => {
   const messageService = new MessageService()
   socket.on('chat.sync', async (data:Room) => {
     const messages = await messageService.findMessagesWithRoom(data.id)
-    console.log('Messages BD: ', messages)
     io.emit('chat.sync', messages)
   })
 
-  // author_id: message.author.id,
-  //     room_id: message.room.id,
-  //     text: message.message
-
   socket.on('chat.room', async (message) => {
-    console.log('chegou messagem', message)
-    await messageService.create({
+    const msg = await messageService.create({
       author_id: message.author_id,
       room_id: message.room_id,
       text: message.text
     })
 
-    io.emit('chat.room', message)
+    const parsedMessage = await messageService.getMessage(msg.id)
+
+    io.emit('chat.room', parsedMessage)
   })
 
   socket.on('disconnect', () => {
