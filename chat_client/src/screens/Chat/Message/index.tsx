@@ -8,6 +8,7 @@ import { AuthContext } from '../../../context/AuthContext'
 import { Room } from '../../../data/services/rooms/types'
 import { User } from '../../../data/services/users/types'
 import { WebSocket } from '../../../services/WebSocket'
+import { createDate } from '../../../utils/date'
 import {
   Container,
   Content, FooterContainer, HeaderContainer,
@@ -106,7 +107,7 @@ const Message: React.FC<MessageScreenProps> = ({ roomSelected }) => {
             <MessageItem myMessage={msg.user?.id === user?.id} key={index}>
               <MessageItemContent myMessage={msg.user?.id === user?.id}>
                 <MessageText>{msg.text}</MessageText>
-                <MessageHour>09:30</MessageHour>
+                <MessageHour>{createDate(String(msg.created_at))}</MessageHour>
               </MessageItemContent>
             </MessageItem>
           )
