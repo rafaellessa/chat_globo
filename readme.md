@@ -11,6 +11,12 @@ levantar os containers
 $ docker-compose up -d
 ```
 
+Após levantar os containers, deve-se criar as migrations
+
+```bash
+$ docker exec -it chat_globo_chat-api_1 bash
+$ npx yarn typeorm migration:run
+```
 
 # Sobre o docker-compose
 
