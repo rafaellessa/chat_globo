@@ -77,7 +77,7 @@ export const SearchInput = styled.input`
   height: 100%;
   background-color: transparent;
   border: none;
-  box-shadow: 0 0 0 0;    
+  box-shadow: 0 0 0 0;
   outline: 0;
   color: ${theme.colors.white};
   font-family: Inter;
@@ -115,7 +115,7 @@ export const MessagesContainer = styled.div`
   flex: 1;
   flex-direction: column;
   background-color: #ECE5DD;
-  border-radius: 10px; 
+  border-radius: 10px;
   overflow: auto;
   padding: 10px;
 `

@@ -14,6 +14,8 @@ import RoomService from '../../../data/services/rooms'
 import { WebSocket } from '../../../services/WebSocket'
 import { Socket } from 'socket.io-client'
 import { getBaseUrl } from '../../../utils/api'
+import { Link } from 'react-router-dom'
+import { theme } from '../../../global/theme/theme'
 
 interface SideProps {
   onSelectRoom: (room: Room) => void
@@ -86,6 +88,7 @@ const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
         <InfoContainer>
           <Title>{`Olá ${user?.name}`}</Title>
           <SubTitle>Seja bem vindo!</SubTitle>
+          <Link style={{ fontFamily: 'Inter', color: theme.colors.white, fontSize: 12 }} to='/login'>Sair</Link>
         </InfoContainer>
         <Button onClick={handleToogleDialog}>
           <AddIcon />
