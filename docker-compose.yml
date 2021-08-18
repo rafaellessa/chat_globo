@@ -28,7 +28,7 @@ services:
             REDIS_DB: 0
             REDIS_PREFIX: "CacheChat:"
             CACHE_PREFIX: "Chat:"
-            
+
             # Ambiente do node
             CHAT_API_ENV: ${CHAT_API_ENV}
             CHAT_API_PORT: ${CHAT_API_PORT}
@@ -37,43 +37,8 @@ services:
 
         networks:
             - service-network
-        depends_on:
-            - "service-mysql"
 
         restart: unless-stopped
-
-    service-mysql:
-        image: mysql:5.7
-        ports:
-            - "3306:3306"
-        networks:
-            - service-network
-        container_name: service-mysql
-        environment:
-            MYSQL_ROOT_PASSWORD: ${MYSQL_DB_PASSWORD}
-            MYSQL_DATABASE: ${MYSQL_DB_DATABASE}
-
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "2"
-                max-size: "10m"
-
-        restart: always
-
-    service-redis:
-        image: redis
-        container_name: service-redis
-        networks:
-            - service-network
-
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "2"
-                max-size: "10m"
-
-        restart: always
 
 networks:
     service-network:

@@ -31,6 +31,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onCloseModal }) => {
   const handleCreateRoom = async () => {
     await RoomService.createRoom(rommName)
     onCloseModal()
+    setRoomName('')
     socket?.emit('chat.syncRooms', {})
   }
 

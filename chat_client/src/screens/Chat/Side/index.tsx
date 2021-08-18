@@ -5,7 +5,7 @@ import Avatar from '../../../components/Avatar'
 import { Container, InfoContainer, MessagesContainer, UserInfo, Title, SubTitle, Button, AddIcon, SearchContainer, InputContainer, IconSearchContainer, SearchInput, ArrowIcon, SearchIcon, MessageItem, MessageDetails, MessageAuthor, MessageResume, MessageTime, MessageList, MessageSection, MessageSectionTitle } from './styles'
 import { AuthContext } from '../../../context/AuthContext'
 
-import avatar from '../../../assets/avatar.jpg'
+import avatar from '../../../assets/avatar.png'
 import Dialog from '../Dialog'
 import { User } from '../../../data/services/users/types'
 import UserService from '../../../data/services/users'
@@ -27,6 +27,7 @@ const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [users, setUsers] = useState<User[]>()
   const [rooms, setRooms] = useState<Room[]>()
+  const [filteredRooms, setFilteredRooms] = useState<Room[]>([])
   const [socket, setSocket] = useState<Socket | null>(null)
   const { user } = useContext(AuthContext)
   const instance = new WebSocket()
@@ -48,6 +49,15 @@ const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
     fetchRooms()
   }, [])
 
+  useEffect(() => {
+    if (searchText.length) {
+      setSearching(true)
+      handleSearchRooms()
+    } else {
+      setSearching(false)
+    }
+  }, [searchText])
+
   async function fetchUsers () {
     const response = await UserService.getAllUsers()
     setUsers(response)
@@ -57,14 +67,6 @@ const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
     const response = await RoomService.getRooms()
     setRooms(response)
   }
-
-  useEffect(() => {
-    if (searchText.length) {
-      setSearching(true)
-    } else {
-      setSearching(false)
-    }
-  }, [searchText])
 
   const handleSearch = (event) => {
     setSearchText(event.target.value)
@@ -78,6 +80,11 @@ const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
   const handleToogleDialog = () => {
     setDialogOpen(!dialogOpen)
     fetchRooms()
+  }
+
+  const handleSearchRooms = () => {
+    const filtered = rooms?.filter((room) => room.name === searchText)
+    setFilteredRooms(filtered!)
   }
 
   return (
@@ -94,14 +101,6 @@ const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
           <AddIcon />
         </Button>
       </UserInfo>
-      <SearchContainer>
-        <InputContainer>
-          <IconSearchContainer onClick={handleResetSearch}>
-            {searching ? <ArrowIcon/> : <SearchIcon/>}
-          </IconSearchContainer>
-          <SearchInput onChange={handleSearch} placeholder="Pesquisar ou começar uma nova conversa"/>
-        </InputContainer>
-      </SearchContainer>
       <MessagesContainer>
         <MessageSection>
           <MessageSectionTitle>Conversas / Salas</MessageSectionTitle>
@@ -115,17 +114,6 @@ const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
             </MessageDetails>
           </MessageItem>
           ))}
-          <MessageSection>
-            <MessageSectionTitle>Usuários</MessageSectionTitle>
-          </MessageSection>
-            {users?.map((user) => (
-              <MessageItem key={user.id}>
-                <Avatar avatar={avatar}/>
-                <MessageDetails>
-                  <MessageAuthor>{user.name}</MessageAuthor>
-                </MessageDetails>
-              </MessageItem>
-            ))}
         </MessageList>
       </MessagesContainer>
 

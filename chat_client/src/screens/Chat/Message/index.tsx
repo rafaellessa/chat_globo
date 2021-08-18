@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { Socket } from 'socket.io-client'
-import avatar from '../../../assets/avatar.jpg'
+import avatar from '../../../assets/avatar.png'
 import Avatar from '../../../components/Avatar'
 import { AuthContext } from '../../../context/AuthContext'
 import { Room } from '../../../data/services/rooms/types'
