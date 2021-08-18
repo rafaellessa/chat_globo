@@ -49,7 +49,6 @@ const Message: React.FC<MessageScreenProps> = ({ roomSelected }) => {
     handleMessagesWithRoomSelected()
     if (roomSelected) {
       socket?.on('chat.sync', (data: MessageProps[]) => {
-        // setMessagesRoom(data)
         setMessages(handleSortMessages(data))
       })
     }
