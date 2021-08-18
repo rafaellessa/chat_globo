@@ -78,10 +78,6 @@ const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
     fetchRooms()
   }
 
-  const handleGetRoomsWithSocket = () => {
-
-  }
-
   return (
     <>
     <Container>
@@ -113,9 +109,7 @@ const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
             <Avatar avatar={avatar}/>
             <MessageDetails>
               <MessageAuthor>{item.name}</MessageAuthor>
-              <MessageResume>fala meu querido</MessageResume>
             </MessageDetails>
-            <MessageTime>12:00</MessageTime>
           </MessageItem>
           ))}
           <MessageSection>
