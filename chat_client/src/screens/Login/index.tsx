@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { Redirect, useHistory } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import logo from '../../assets/logo.png'
 import { AuthContext } from '../../context/AuthContext'
 import { Title } from '../Chat/Side/styles'
@@ -15,7 +15,7 @@ import {
 } from './styles'
 
 const Login: React.FC = () => {
-  const { handleLogin, errorLogin, user, authenticated } = useContext(AuthContext)
+  const { handleLogin } = useContext(AuthContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const history = useHistory()

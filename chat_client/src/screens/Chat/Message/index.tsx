@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { Socket } from 'socket.io-client'
@@ -7,7 +8,11 @@ import { AuthContext } from '../../../context/AuthContext'
 import { Room } from '../../../data/services/rooms/types'
 import { User } from '../../../data/services/users/types'
 import { WebSocket } from '../../../services/WebSocket'
+import { getBaseUrl } from '../../../utils/api'
+import { createDate } from '../../../utils/date'
 import {
+  AuthorMessage,
+  AuthorMessageContainer,
   Container,
   Content, FooterContainer, HeaderContainer,
   HeaderInfo,
@@ -27,8 +32,6 @@ export interface MessageProps {
   author_id?: string
 }
 
-const endpoint = 'http://localhost:3002'
-
 interface MessageScreenProps {
   roomSelected: Room | undefined
 }
@@ -41,7 +44,7 @@ const Message: React.FC<MessageScreenProps> = ({ roomSelected }) => {
   const { user } = useContext(AuthContext)
 
   useEffect(() => {
-    const parsedInstance = instance.connect(endpoint)
+    const parsedInstance = instance.connect(getBaseUrl())
     setSocket(parsedInstance)
   }, [])
 
@@ -99,14 +102,23 @@ const Message: React.FC<MessageScreenProps> = ({ roomSelected }) => {
 
   const listMemo = useMemo(() => {
     return (
-      messages.map((msg, index) => (
-        <MessageItem myMessage={msg.user?.id === user?.id} key={index}>
-          <MessageItemContent myMessage={msg.user?.id === user?.id}>
-            <MessageText>{msg.text}</MessageText>
-            <MessageHour>09:30</MessageHour>
-          </MessageItemContent>
-        </MessageItem>
-      ))
+      messages.map((msg, index) => {
+        if (msg.room.id === roomSelected?.id) {
+          return (
+            <>
+            <AuthorMessageContainer myMessage={msg.user?.id === user?.id}>
+              <AuthorMessage>{msg.user?.name + ':'}</AuthorMessage>
+            </AuthorMessageContainer>
+            <MessageItem myMessage={msg.user?.id === user?.id} key={index}>
+              <MessageItemContent myMessage={msg.user?.id === user?.id}>
+                <MessageText>{msg.text}</MessageText>
+                <MessageHour>{createDate(String(msg.created_at))}</MessageHour>
+              </MessageItemContent>
+            </MessageItem>
+            </>
+          )
+        }
+      })
     )
   }, [messages])
 

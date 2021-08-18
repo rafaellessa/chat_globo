@@ -11,6 +11,9 @@ import { User } from '../../../data/services/users/types'
 import UserService from '../../../data/services/users'
 import { Room } from '../../../data/services/rooms/types'
 import RoomService from '../../../data/services/rooms'
+import { WebSocket } from '../../../services/WebSocket'
+import { Socket } from 'socket.io-client'
+import { getBaseUrl } from '../../../utils/api'
 
 interface SideProps {
   onSelectRoom: (room: Room) => void
@@ -19,12 +22,26 @@ interface SideProps {
 const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
   const [searchText, setSearchText] = useState('')
   const [searching, setSearching] = useState(false)
-  const { user } = useContext(AuthContext)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [users, setUsers] = useState<User[]>()
   const [rooms, setRooms] = useState<Room[]>()
+  const [socket, setSocket] = useState<Socket | null>(null)
+  const { user } = useContext(AuthContext)
+  const instance = new WebSocket()
 
   useEffect(() => {
+    socket?.on('chat.rooms', (data) => {
+      setRooms(data)
+    })
+
+    return () => {
+      socket?.off()
+    }
+  }, [rooms])
+
+  useEffect(() => {
+    const parsedInstance = instance.connect(getBaseUrl())
+    setSocket(parsedInstance)
     fetchUsers()
     fetchRooms()
   }, [])
@@ -58,6 +75,7 @@ const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
 
   const handleToogleDialog = () => {
     setDialogOpen(!dialogOpen)
+    fetchRooms()
   }
 
   return (
@@ -91,9 +109,7 @@ const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
             <Avatar avatar={avatar}/>
             <MessageDetails>
               <MessageAuthor>{item.name}</MessageAuthor>
-              <MessageResume>fala meu querido</MessageResume>
             </MessageDetails>
-            <MessageTime>12:00</MessageTime>
           </MessageItem>
           ))}
           <MessageSection>

@@ -14,7 +14,7 @@ export class CreateMessages1628709302755 implements MigrationInterface {
           },
           {
             name: 'text',
-            type: 'varchar(300)'
+            type: 'varchar(1000)'
           },
           {
             name: 'room_id',

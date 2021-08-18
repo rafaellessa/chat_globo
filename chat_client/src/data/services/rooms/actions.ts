@@ -1,7 +1,8 @@
+import { getBaseUrl } from '../../../utils/api'
 
 const action = {
-  getRooms: 'http://localhost:3002/rooms',
-  createRooms: 'http://localhost:3002/rooms'
+  getRooms: `${getBaseUrl()}/rooms`,
+  createRooms: `${getBaseUrl()}/rooms`
 }
 
 export default action

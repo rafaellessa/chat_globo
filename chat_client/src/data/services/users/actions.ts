@@ -1,5 +1,7 @@
+import { getBaseUrl } from '../../../utils/api'
+
 const action = {
-  getAll: 'http://localhost:3002/users'
+  getAll: `${getBaseUrl()}/users`
 }
 
 export default action

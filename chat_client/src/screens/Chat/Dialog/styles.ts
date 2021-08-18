@@ -18,7 +18,6 @@ export const DialogContent = styled(Content)`
   display: flex;
   flex-direction: column;
   width: 400px;
-  height: 400px;
   align-items: center;
   background-color: ${theme.colors.secondary500};
 `

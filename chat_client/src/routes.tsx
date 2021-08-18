@@ -4,33 +4,14 @@ import { AuthContext } from './context/AuthContext'
 import Chat from './screens/Chat'
 import Login from './screens/Login'
 import SignUp from './screens/SignUp'
-// import isAuthenticated from './services/Auth'
-
-// const PrivateRoutes = ({ component: Component, ...rest }) => {
-//   const { user } = useContext(AuthContext)
-//   return (
-//     <Route {...rest} render={props => (
-//       user
-//         ? (
-//             <Component {...props}/>
-//           )
-//         : <Redirect to={{
-//           pathname: '/',
-//           state: {
-//             from: props.location
-//           }
-//         }}/>
-//     )}/>
-//   )
-// }
 
 function PrivateRoute ({ children, ...rest }) {
-  const { authenticated } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        authenticated
+        user
           ? (
               children
             )

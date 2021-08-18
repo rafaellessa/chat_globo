@@ -7,7 +7,6 @@ interface AuthContextProps {
   handleLogin: (email: string, password: string) => Promise<LoginReturnApi>
   handleRegister: (data: RegisterParams) => Promise<any>
   errorLogin: string | undefined
-  authenticated: boolean
 }
 interface AuthReturnApiProps {
   status: number
@@ -30,14 +29,7 @@ interface LoginReturnApi {
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps)
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [authenticated] = useState(true)
   const [user, setUser] = useState<User | null>(null)
-  // const [user, setUser] = useState<User | null>({
-  //   created_at: '2021-08-17T16:11:42.000Z',
-  //   email: 'rafael.lessa150@gmail.com',
-  //   id: 'cb2c9b70-178d-4940-b65c-cc98f46005a4',
-  //   name: 'Rafael Lessa'
-  // })
   const [error, setError] = useState<string | undefined>('')
 
   const handleLogin = async (email: string, password: string) => {
@@ -63,7 +55,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ handleLogin, handleRegister, user, errorLogin: error, authenticated }}>
+    <AuthContext.Provider value={{ handleLogin, handleRegister, user, errorLogin: error }}>
       {children}
     </AuthContext.Provider>
   )
