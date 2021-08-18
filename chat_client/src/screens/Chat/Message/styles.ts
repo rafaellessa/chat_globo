@@ -21,7 +21,7 @@ export const Content = styled.div`
   background-color: ${theme.colors.white};
   flex-direction: column;
   border-radius: 10px;
-  
+
 `
 export const HeaderContainer = styled.div`
   display: flex;
@@ -53,7 +53,7 @@ export const MessagesContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 550px;
-  overflow: auto;  
+  overflow: auto;
   margin: 15px 0px;
   background-image: url(${background});
   border-radius: 10px;
@@ -95,7 +95,7 @@ export const MessageInput = styled.input`
   display: flex;
   flex: 1;
   border: none;
-  box-shadow: 0 0 0 0;    
+  box-shadow: 0 0 0 0;
   outline: 0;
 `
 
@@ -122,4 +122,13 @@ font-family: Inter;
   justify-content: flex-end;
   margin-left: 20px;
   color: ${theme.colors.secondary700};
+`
+export const AuthorMessageContainer = styled.div<ThemedStyledProps>`
+  display: flex;
+  justify-content: ${props => props.myMessage ? 'flex-end' : 'flex-start'};
+  margin-bottom: 5px;
+`
+export const AuthorMessage = styled.span`
+  font-family: Inter;
+  font-size: 10px;
 `

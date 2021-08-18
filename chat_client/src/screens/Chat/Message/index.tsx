@@ -11,6 +11,8 @@ import { WebSocket } from '../../../services/WebSocket'
 import { getBaseUrl } from '../../../utils/api'
 import { createDate } from '../../../utils/date'
 import {
+  AuthorMessage,
+  AuthorMessageContainer,
   Container,
   Content, FooterContainer, HeaderContainer,
   HeaderInfo,
@@ -103,12 +105,17 @@ const Message: React.FC<MessageScreenProps> = ({ roomSelected }) => {
       messages.map((msg, index) => {
         if (msg.room.id === roomSelected?.id) {
           return (
+            <>
+            <AuthorMessageContainer myMessage={msg.user?.id === user?.id}>
+              <AuthorMessage>{msg.user?.name + ':'}</AuthorMessage>
+            </AuthorMessageContainer>
             <MessageItem myMessage={msg.user?.id === user?.id} key={index}>
               <MessageItemContent myMessage={msg.user?.id === user?.id}>
                 <MessageText>{msg.text}</MessageText>
                 <MessageHour>{createDate(String(msg.created_at))}</MessageHour>
               </MessageItemContent>
             </MessageItem>
+            </>
           )
         }
       })
