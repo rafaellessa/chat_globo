@@ -87,7 +87,6 @@ const Message: React.FC<MessageScreenProps> = ({ roomSelected }) => {
       if (a.created_at! < b.created_at!) {
         return -1
       }
-      // a must be equal to b
       return 0
     })
 
