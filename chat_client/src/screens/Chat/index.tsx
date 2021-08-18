@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Room } from '../../data/services/rooms/types'
 import Message from './Message'
 import Side from './Side'
