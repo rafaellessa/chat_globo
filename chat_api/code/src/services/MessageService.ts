@@ -6,7 +6,6 @@ import { MessageRepository } from '../repositories/MessageRepository'
 interface IMessage {
   text: string
   author_id: string
-  destination_id: string
   room_id: string
 }
 

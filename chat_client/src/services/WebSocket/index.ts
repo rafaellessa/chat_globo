@@ -1,3 +1,4 @@
+
 import io, { Socket } from 'socket.io-client'
 class WebSocket {
   connect (endpoint: string): Socket {

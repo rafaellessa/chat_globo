@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useContext, useEffect, useState } from 'react'
 import Avatar from '../../../components/Avatar'
 
@@ -7,17 +8,37 @@ import { AuthContext } from '../../../context/AuthContext'
 import avatar from '../../../assets/avatar.jpg'
 import Dialog from '../Dialog'
 import { User } from '../../../data/services/users/types'
+import UserService from '../../../data/services/users'
+import { Room } from '../../../data/services/rooms/types'
+import RoomService from '../../../data/services/rooms'
 
 interface SideProps {
-  messages?: []
-  users: User[] | undefined
+  onSelectRoom: (room: Room) => void
 }
 
-const Side: React.FC<SideProps> = ({ messages, users }) => {
+const Side: React.FC<SideProps> = ({ onSelectRoom }) => {
   const [searchText, setSearchText] = useState('')
   const [searching, setSearching] = useState(false)
   const { user } = useContext(AuthContext)
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [users, setUsers] = useState<User[]>()
+  const [rooms, setRooms] = useState<Room[]>()
+
+  useEffect(() => {
+    console.log('Montou os datas')
+    fetchUsers()
+    fetchRooms()
+  }, [])
+
+  async function fetchUsers () {
+    const response = await UserService.getAllUsers()
+    setUsers(response)
+  }
+
+  async function fetchRooms () {
+    const response = await RoomService.getRooms()
+    setRooms(response)
+  }
 
   useEffect(() => {
     if (searchText.length) {
@@ -46,7 +67,7 @@ const Side: React.FC<SideProps> = ({ messages, users }) => {
       <UserInfo>
         <Avatar avatar={avatar}/>
         <InfoContainer>
-          <Title>{`Olá ${user}`}</Title>
+          <Title>{`Olá ${user?.name}`}</Title>
           <SubTitle>Seja bem vindo!</SubTitle>
         </InfoContainer>
         <Button onClick={handleToogleDialog}>
@@ -66,22 +87,16 @@ const Side: React.FC<SideProps> = ({ messages, users }) => {
           <MessageSectionTitle>Conversas / Salas</MessageSectionTitle>
         </MessageSection>
         <MessageList>
-          <MessageItem>
+          {rooms?.map((item) => (
+            <MessageItem key={item.id} onClick={() => onSelectRoom(item)}>
             <Avatar avatar={avatar}/>
             <MessageDetails>
-              <MessageAuthor>Gilberto</MessageAuthor>
+              <MessageAuthor>{item.name}</MessageAuthor>
               <MessageResume>fala meu querido</MessageResume>
             </MessageDetails>
             <MessageTime>12:00</MessageTime>
           </MessageItem>
-          <MessageItem>
-            <Avatar avatar={avatar}/>
-            <MessageDetails>
-              <MessageAuthor>Gilberto</MessageAuthor>
-              <MessageResume>fala meu querido</MessageResume>
-            </MessageDetails>
-            <MessageTime>12:00</MessageTime>
-          </MessageItem>
+          ))}
           <MessageSection>
             <MessageSectionTitle>Usuários</MessageSectionTitle>
           </MessageSection>

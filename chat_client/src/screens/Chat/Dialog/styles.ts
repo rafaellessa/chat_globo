@@ -64,7 +64,6 @@ export const Input = styled.input`
   font-size: 14px;
   /* color: ${theme.colors.white}; */
   font-family: Inter;
-
   ::placeholder {
     /* color: ${theme.colors.white} */
   }
@@ -99,7 +98,6 @@ export const UserItem = styled.li<StyledProps>`
   padding-bottom: 5px;
   margin-top: 5px;
   opacity: ${props => props.select ? 0.6 : 1};
-
   :hover{
     opacity: 0.3;
   }
@@ -115,11 +113,9 @@ export const FooterContainer = styled.div`
   width: 50%;
   justify-content: center;
   padding: 20px;
-
   :hover {
     opacity: 0.7;
   }
-
   :active:after {
     padding: 0;
     margin: 0;
