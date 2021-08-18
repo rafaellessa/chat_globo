@@ -7,3 +7,4 @@ chat_client/yarn.lock
 
 chat_api/code/yarn-error.log
 .env
+chat_api/code/src/database/database/sqlite
